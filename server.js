@@ -1,8 +1,10 @@
 var http = require("http");
+var url = require("url");
 
 function start() {
 	function onRequest(request, response) {
-		console.log("Request recieved");
+		var pathname = url.parse(request.url).pathname;
+		console.log("Request for " + pathname + " recieved");
 		response.writeHead(200, {"Content-Type": "text/plain"});
 		response.write("Hello, world!");
 		response.end();
@@ -11,8 +13,6 @@ function start() {
 	http.createServer(onRequest).listen(3000);
 	console.log("Server started");
 }
-
-start();
 
 exports.start = start;
 
